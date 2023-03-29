@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Admin {
-    Scanner input=new Scanner(System.in);
+   private Scanner input=new Scanner(System.in);
     public int singInAdmin (){
         System.out.println("Enter your password");
         String password=input.nextLine();
@@ -11,4 +11,6 @@ public class Admin {
         else {
             System.out.println("Wrong password");return 0;}
     }
+
+
 }

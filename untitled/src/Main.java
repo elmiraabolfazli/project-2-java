@@ -6,17 +6,27 @@ public class Main {
            switch (n){
                case 1:
                    n=users.singIn();
-                   System.out.println(n);
                    switch (n){
                        case 1:
+                          n= users.userMenu();
+                          switch (n){
+                              case 1:
+                                  users.changePassword();
+                                  break;
+
+                          }
                            break;
                        case 2:
+                          n= users.adminMenu();
                            break;
                    }
                    break;
                case 2:
                   users.singUp();
-                   break;
+
+                  break;
+               default:
+                   System.out.println("Wrong number");
            }
 
 

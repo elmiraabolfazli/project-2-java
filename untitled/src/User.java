@@ -1,6 +1,9 @@
+import java.util.Scanner;
+
 public class User {
 private String username;
 private String password;
+
 
     public void setUsername(String username) {
         this.username = username;
@@ -17,4 +20,6 @@ private String password;
     public String getPassword() {
         return password;
     }
+
+
 }

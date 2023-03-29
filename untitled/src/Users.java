@@ -3,7 +3,8 @@ import java.util.Scanner;
 public class Users {
     private User[] usersArry= new User[100];
     private int numberOfUser=0;
-    Scanner input=new Scanner(System.in);
+   private Scanner input=new Scanner(System.in);
+   private int number=0;
     Admin admin= new Admin();
     public int menu1(){
         System.out.println("1-Sing in");
@@ -35,19 +36,43 @@ public class Users {
                 if(usersArry[i].getUsername().equals(name)){
                     System.out.println("Enter your password");
                     String password=input.nextLine();
-                    if(usersArry[i].getPassword().equals(password)){i=numberOfUser; return 1;}
+                    if(usersArry[i].getPassword().equals(password)){ number=i;i=numberOfUser; return 1;}
                      else {
                         System.out.println("Wrong password!");
-                        //return 0;
+                        return 0;
                     }
-                }else{
-                    System.out.println("Wrong username !");
-                    //return 0;
                 }
 
             }
         }
         return n;
+    }
+
+    public int adminMenu(){
+        System.out.println("1-Add");
+        System.out.println("2-Update");
+        System.out.println("3-Remove");
+        System.out.println("4-Flight schedules");
+        System.out.println("0-Sing out ");
+        return input.nextInt();
+
+    }
+    public int userMenu(){
+        System.out.println("1-Change password");
+        System.out.println("2-Search flight tickets");
+        System.out.println("3-Booking ticket");
+        System.out.println("4-Ticket cancellation");
+        System.out.println("5-Booked tickets");
+        System.out.println("6-Add charge");
+        System.out.println("0-Sing out");
+        return input.nextInt();
+
+    }
+    public void changePassword(){
+        System.out.println("Enter your new password");
+        String password=input.nextLine();
+        password=input.nextLine();
+        usersArry[number].setPassword(password);
     }
 
 }
