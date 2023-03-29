@@ -4,6 +4,7 @@ public class Users {
     private User[] usersArry= new User[100];
     private int numberOfUser=0;
     Scanner input=new Scanner(System.in);
+    Admin admin= new Admin();
     public int menu1(){
         System.out.println("1-Sing in");
         System.out.println("2-Sing up");
@@ -27,25 +28,25 @@ public class Users {
         name=input.nextLine();
 
         if(name.equals("Admin")){
+            return admin.singInAdmin();
 
         }else{
             for (int i = 0; i < numberOfUser; i++) {
                 if(usersArry[i].getUsername().equals(name)){
                     System.out.println("Enter your password");
                     String password=input.nextLine();
-                    if(usersArry[i].getPassword().equals(password)){ n=1;}
+                    if(usersArry[i].getPassword().equals(password)){i=numberOfUser; return 1;}
                      else {
                         System.out.println("Wrong password!");
-                        n=0;
+                        //return 0;
                     }
                 }else{
                     System.out.println("Wrong username !");
-                    n=0;
+                    //return 0;
                 }
 
             }
         }
-        System.out.println(n);
         return n;
     }
 

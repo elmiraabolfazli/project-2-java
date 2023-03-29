@@ -6,6 +6,7 @@ public class Main {
            switch (n){
                case 1:
                    n=users.singIn();
+                   System.out.println(n);
                    switch (n){
                        case 1:
                            break;
