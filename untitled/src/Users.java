@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Users {
@@ -74,5 +75,6 @@ public class Users {
         password=input.nextLine();
         usersArry[number].setPassword(password);
     }
+
 
 }
