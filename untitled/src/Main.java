@@ -1,6 +1,8 @@
 public class Main {
     public static void main(String[] args) {
         Users users=new Users();
+        Flights flights=new Flights();
+        flights.flightInitialize();
         while (true){
            int n= users.menu1();
            switch (n){
@@ -12,6 +14,9 @@ public class Main {
                           switch (n){
                               case 1:
                                   users.changePassword();
+                                  break;
+                              case 2:
+                                  flights.searchFlightTicket();
                                   break;
 
                           }
