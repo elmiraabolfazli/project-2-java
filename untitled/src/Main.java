@@ -18,6 +18,14 @@ public class Main {
                               case 2:
                                   flights.searchFlightTicket();
                                   break;
+                              case 3:
+                                  users.booking(flights.flightArrayList);
+                                  break;
+                              case 4:
+                                  users.church();
+                                  break;
+                              case 5:
+
 
                           }
                            break;

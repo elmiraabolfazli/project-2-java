@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Users {
+public class Users  {
     private User[] usersArry= new User[100];
     private int numberOfUser=0;
    private Scanner input=new Scanner(System.in);
    private int number=0;
-    Admin admin= new Admin();
+    private Admin admin= new Admin();
     public int menu1(){
         System.out.println("1-Sing in");
         System.out.println("2-Sing up");
@@ -74,6 +74,33 @@ public class Users {
         String password=input.nextLine();
         password=input.nextLine();
         usersArry[number].setPassword(password);
+    }
+    public void booking(ArrayList<Flight> flightsArrayList){
+        System.out.println("Enter id flight");
+       String id=input.nextLine();
+        id=input.nextLine();
+        for (int i = 0; i < flightsArrayList.size(); i++) {
+            String idFlight=flightsArrayList.get(i).getId();
+            if(id.equals(idFlight)){
+                int seat=flightsArrayList.get(i).getSeats();
+                long price= (long)flightsArrayList.get(i).getPrice();
+                long charch=usersArry[number].getCharch();
+                if (seat > 0 && charch>=price) {
+                    usersArry[number].bookingFlight.add(flightsArrayList.get(i));
+                    flightsArrayList.get(i).setSeats(--seat);
+                    usersArry[number].setCharch(charch - price);
+                    System.out.println("Flight"+id+" booked");
+                }else {
+                    System.out.println("You cant book ticket\n check the charch or seats");
+                    i=flightsArrayList.size();
+                }
+            }
+        }
+    }
+    public void church(){
+        System.out.println("Enter church");
+        long church = input.nextLong();
+        usersArry[number].setCharch(church);
     }
 
 

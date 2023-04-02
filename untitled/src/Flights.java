@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Flights {
 
 
-     private ArrayList<Flight> flightArrayList=new ArrayList<>();
+     public ArrayList<Flight> flightArrayList=new ArrayList<>();
      private int numberOfFlight=10;
    private Scanner input =new Scanner(System.in);
      public void flightInitialize (){
@@ -90,12 +90,7 @@ public class Flights {
                  break;
              default:
 
-         }
-             for (int i = 0; i < flightArrayList1.toArray().length; i++) {
-                 System.out.println(flightArrayList1.get(i).getId());
-             }
-         }
-     }
+         }}}
      private int searchFlightTicketFilters(){
          System.out.println("Choose filter");
          System.out.println("Your filter:");
