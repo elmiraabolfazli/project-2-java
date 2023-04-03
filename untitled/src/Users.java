@@ -62,9 +62,9 @@ public class Users  {
         System.out.println("1-Change password");
         System.out.println("2-Search flight tickets");
         System.out.println("3-Booking ticket");
-        System.out.println("4-Ticket cancellation");
-        System.out.println("5-Booked tickets");
-        System.out.println("6-Add charge");
+        System.out.println("4-Add charge");
+        System.out.println("5-Ticket cancellation");
+        System.out.println("6-Booked tickets");
         System.out.println("0-Sing out");
         return input.nextInt();
 
@@ -101,6 +101,11 @@ public class Users  {
         System.out.println("Enter church");
         long church = input.nextLong();
         usersArry[number].setCharch(church);
+    }
+    public void print(){
+        for (int i = 0; i < usersArry[number].bookingFlight.size(); i++) {
+            System.out.println(usersArry[number].bookingFlight.get(i));
+        }
     }
 
 

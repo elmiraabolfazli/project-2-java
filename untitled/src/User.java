@@ -30,4 +30,5 @@ public ArrayList<Flight> bookingFlight=new ArrayList<>();
     public void setCharch(long charch) {
         this.charch = charch;
     }
+
 }

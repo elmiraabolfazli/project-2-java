@@ -75,4 +75,17 @@ public class Flight {
         this.price = price;
         this.seats = seats;
     }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "id='" + id + '\'' +
+                ", origin='" + origin + '\'' +
+                ", destination='" + destination + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", price=" + price +
+                ", seats=" + seats +
+                '}';
+    }
 }

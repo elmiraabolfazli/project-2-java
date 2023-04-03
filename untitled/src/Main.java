@@ -10,8 +10,9 @@ public class Main {
                    n=users.singIn();
                    switch (n){
                        case 1:
+                           while (n!=0){
                           n= users.userMenu();
-                          switch (n){
+                          switch (n) {
                               case 1:
                                   users.changePassword();
                                   break;
@@ -25,9 +26,12 @@ public class Main {
                                   users.church();
                                   break;
                               case 5:
+                                  break;
+                              case 6:
+                                  users.print();
 
 
-                          }
+                          }}
                            break;
                        case 2:
                           n= users.adminMenu();

@@ -41,25 +41,27 @@ public class Flights {
                  String id=input.nextLine();
                  id=input.nextLine();
                  for (int i = 0; i < flightArrayList1.size(); i++) {
-                  if( id.equals(flightArrayList1.get(i).getId())){//print}
+                  if( id.equals(flightArrayList1.get(i).getId())){
                       }else {flightArrayList1.remove(i);i--;}
                  }
+                 print (flightArrayList1);
                  break;
              case 2:
                  System.out.println("Enter origin:");
                  String origin=input.nextLine();
                  origin=input.nextLine();
                  for (int i = 0; i < flightArrayList1.size(); i++) {
-                     if( origin.equals(flightArrayList1.get(i).getOrigin())){//print}
+                     if( origin.equals(flightArrayList1.get(i).getOrigin())){
                      }else {flightArrayList1.remove(i);i--;}
                  }
+                 print (flightArrayList1);
                  break;
              case 3:
                  System.out.println("Enter Destination:");
                  String Destination=input.nextLine();
                  Destination=input.nextLine();
                  for (int i = 0; i < flightArrayList1.size(); i++) {
-                     if( Destination.equals(flightArrayList1.get(i).getDestination())){//print}
+                     if( Destination.equals(flightArrayList1.get(i).getDestination())){print (flightArrayList1);
                      }else {flightArrayList1.remove(i);i--;}
                  }
                  break;
@@ -68,7 +70,7 @@ public class Flights {
                  String Date=input.nextLine();
                  Date=input.nextLine();
                  for (int i = 0; i < flightArrayList1.size(); i++) {
-                     if( Date.equals(flightArrayList1.get(i).getDate())){//print}
+                     if( Date.equals(flightArrayList1.get(i).getDate())){print (flightArrayList1);
                      }else {flightArrayList1.remove(i);i--;}
                  }
                  break;
@@ -84,7 +86,7 @@ public class Flights {
                  }
                  for (int i = 0; i < flightArrayList1.size(); i++) {
                      long price= (long) flightArrayList1.get(i).getPrice();
-                     if((min<=price)&&(max>=price)){//print}
+                     if((min<=price)&&(max>=price)){print (flightArrayList1);
                      }else {flightArrayList1.remove(i);i--;}
                  }
                  break;
@@ -102,4 +104,15 @@ public class Flights {
          System.out.println("0-sing out");
          return input.nextInt();
      }
+     public void print(){
+         for (int i = 0; i < flightArrayList.size(); i++) {
+             System.out.println(flightArrayList.get(i));
+         }
+     }
+    public void print(ArrayList<Flight> flightArrayList1){
+        for (int i = 0; i < flightArrayList1.size(); i++) {
+            System.out.println(flightArrayList1.get(i));
+        }
+    }
+
 }
