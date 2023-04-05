@@ -26,6 +26,7 @@ public class Main {
                                   users.church();
                                   break;
                               case 5:
+                                  users.ticketCancellation(flights.flightArrayList);
                                   break;
                               case 6:
                                   users.print();
@@ -34,7 +35,23 @@ public class Main {
                           }}
                            break;
                        case 2:
+                           while (n!=0){
                           n= users.adminMenu();
+                          switch (n){
+                              case 1:
+                                  flights.add();
+                                  break;
+                              case 2:
+                                  flights.update();
+                                  break;
+                              case 3:
+                                  flights.remove();
+                                  break;
+                              case 4:
+                                  flights.print();
+                                  break;
+                          }
+                           }
                            break;
                    }
                    break;

@@ -86,9 +86,9 @@ public class Users  {
                 long price= (long)flightsArrayList.get(i).getPrice();
                 long charch=usersArry[number].getCharch();
                 if (seat > 0 && charch>=price) {
-                    usersArry[number].bookingFlight.add(flightsArrayList.get(i));
                     flightsArrayList.get(i).setSeats(--seat);
                     usersArry[number].setCharch(charch - price);
+                    usersArry[number].bookingFlight.add(flightsArrayList.get(i));
                     System.out.println("Flight"+id+" booked");
                 }else {
                     System.out.println("You cant book ticket\n check the charch or seats");
@@ -105,6 +105,22 @@ public class Users  {
     public void print(){
         for (int i = 0; i < usersArry[number].bookingFlight.size(); i++) {
             System.out.println(usersArry[number].bookingFlight.get(i));
+        }
+    }
+    public void ticketCancellation (ArrayList<Flight> flightsArrayList){
+        System.out.println("Enter id flight");
+        String id=input.nextLine();
+        id=input.nextLine();
+        for (int i = 0; i < usersArry[number].bookingFlight.size(); i++) {
+            if(id.equals(usersArry[number].bookingFlight.get(i).getId())){
+                int seat=usersArry[number].bookingFlight.get(i).getSeats();
+                long price= (long)usersArry[number].bookingFlight.get(i).getPrice();
+                long charch=usersArry[number].getCharch();
+                    usersArry[number].bookingFlight.remove(i);
+                    flightsArrayList.get(i).setSeats(++seat);
+                    usersArry[number].setCharch(charch + price);
+                    System.out.println("Flight"+id+" cancelled");
+            }
         }
     }
 
