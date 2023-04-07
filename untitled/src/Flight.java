@@ -1,6 +1,8 @@
-import java.sql.Time;
-import java.util.Date;
-
+/**
+ * this class is about flight details
+ * @author Fatemeh Abolfazli
+ * @since 1402/1/6
+ */
 public class Flight {
     private String id;
     private String origin;
@@ -9,63 +11,45 @@ public class Flight {
     private String time;
     private double price;
     private int seats;
-
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
-
     public String getOrigin() {
         return origin;
     }
-
     public void setOrigin(String origin) {
         this.origin = origin;
     }
-
     public String getDestination() {
         return destination;
     }
-
     public void setDestination(String destination) {
         this.destination = destination;
     }
-
     public String getDate() {
         return date;
     }
-
     public void setDate(String date) {
         this.date = date;
     }
-
-    public String getTime() {
-        return time;
-    }
-
     public void setTime(String time) {
         this.time = time;
     }
-
     public double getPrice() {
         return price;
     }
-
     public void setPrice(double price) {
         this.price = price;
     }
-
     public int getSeats() {
         return seats;
     }
-
     public void setSeats(int seats) {
         this.seats = seats;
     }
-
     public Flight(String id, String origin, String destination, String date, String time, double price, int seats) {
         this.id = id;
         this.origin = origin;
@@ -75,7 +59,6 @@ public class Flight {
         this.price = price;
         this.seats = seats;
     }
-
     @Override
     public String toString() {
         return "Flight{" +

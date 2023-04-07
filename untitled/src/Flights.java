@@ -1,11 +1,13 @@
+/**
+ * This class has an arraylist from flight class to remove,ets
+ * @author Fatemeh Abolfazli
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Flights {
-
-
      public ArrayList<Flight> flightArrayList=new ArrayList<>();
-     private int numberOfFlight=10;
    private Scanner input =new Scanner(System.in);
      public void flightInitialize (){
          Flight flight =new Flight("w.1","Yazd","Kerman","1402/2/20","3:30",700000,40);
@@ -33,13 +35,14 @@ public class Flights {
          ArrayList<Flight> flightArrayList1=new ArrayList<>();
          flightArrayList1=flightArrayList;
          int n=1;
+         ArrayList<String> filter=new ArrayList<>();
          while (n!=0){
-            n=searchFlightTicketFilters();
+            n=searchFlightTicketFilters(filter);
          switch (n){
              case 1:
+                 filter.add("id");
                  System.out.println("Enter id:");
                  String id=input.nextLine();
-                 id=input.nextLine();
                  for (int i = 0; i < flightArrayList1.size(); i++) {
                   if(!(id.equals(flightArrayList1.get(i).getId())))
                   {flightArrayList1.remove(i);i--;}
@@ -47,9 +50,9 @@ public class Flights {
                  print (flightArrayList1);
                  break;
              case 2:
+                 filter.add("origin");
                  System.out.println("Enter origin:");
                  String origin=input.nextLine();
-                 origin=input.nextLine();
                  for (int i = 0; i < flightArrayList1.size(); i++) {
                      if( !(origin.equals(flightArrayList1.get(i).getOrigin())))
                      {flightArrayList1.remove(i);i--;}
@@ -57,56 +60,59 @@ public class Flights {
                  print (flightArrayList1);
                  break;
              case 3:
-                 System.out.println("Enter Destination:");
-                 String Destination=input.nextLine();
-                 Destination=input.nextLine();
+                 filter.add("destination");
+                 System.out.println("Enter destination:");
+                 String destination=input.nextLine();
                  for (int i = 0; i < flightArrayList1.size(); i++) {
-                     if( !(Destination.equals(flightArrayList1.get(i).getDestination())))
+                     if( !(destination.equals(flightArrayList1.get(i).getDestination())))
                      {flightArrayList1.remove(i);i--;}
                  }
                  print (flightArrayList1);
                  break;
              case 4:
-                 System.out.println("Enter Date:");
-                 String Date=input.nextLine();
-                 Date=input.nextLine();
+                 filter.add("date");
+                 String date=checkDate();
                  for (int i = 0; i < flightArrayList1.size(); i++) {
-                     if( !(Date.equals(flightArrayList1.get(i).getDate())))
+                     if( !(date.equals(flightArrayList1.get(i).getDate())))
                      {flightArrayList1.remove(i);i--;}
                  }
                  print (flightArrayList1);
                  break;
              case 5:
+                 filter.add("price");
                  System.out.println("Enter Price rang:");
                  System.out.println("Min");
                  long min =input.nextLong();
                  System.out.println("Max");
                  long max =input.nextLong();
+                 input.nextLine();
                  if(min>max){
                      System.out.println("Wrong rang");
                      break;
                  }
                  for (int i = 0; i < flightArrayList1.size(); i++) {
-                     long price= (long) flightArrayList1.get(i).getPrice();
+                     double price=flightArrayList1.get(i).getPrice();
                      if(!((min<=price)&&(max>=price)))
                      {flightArrayList1.remove(i);i--;}
                  }
                  print (flightArrayList1);
                  break;
              default:
+                 System.out.println("Wrong number");
 
          }}}
-     private int searchFlightTicketFilters(){
+     private int searchFlightTicketFilters(ArrayList<String> filter){
          System.out.println("Choose filter");
-         System.out.println("Your filter:");
+         System.out.println("Your filter:"+filter);
          System.out.println("1-Id");
          System.out.println("2-Origin");
-         System.out.println("3-" +
-                 "");
+         System.out.println("3-Destination");
          System.out.println("4-Date");
          System.out.println("5-Price");
          System.out.println("0-sing out");
-         return input.nextInt();
+         int n= input.nextInt();
+         input.nextLine();
+         return n;
      }
      public void print(){
          for (int i = 0; i < flightArrayList.size(); i++) {
@@ -114,34 +120,31 @@ public class Flights {
          }
      }
     public void print(ArrayList<Flight> flightArrayList1){
+        System.out.println("Available flights:");
         for (int i = 0; i < flightArrayList1.size(); i++) {
             System.out.println(flightArrayList1.get(i));
         }
     }
     public void add(){
-         boolean t=false;
+         boolean flag=false;
         String id="";
-         while (t==false){
+         while (flag==false){
         System.out.println("Enter flight id");
          id=input.nextLine();
-         t=checkId(id);}
+         flag=checkId(id);}
         System.out.println("Enter origin");
-        String orgin="";
-         orgin=input.nextLine();
-        String destination="";
-        while (t==true){
+        String origin=input.nextLine();
         System.out.println("Enter destination ");
-        t=false;
-         destination=input.nextLine();
-        if (destination.equals(orgin)){t=true;}
-        }
+         String destination=input.nextLine();
         String date=checkDate();
         String time=checkTime();
         System.out.println("Enter Price");
-        long price=input.nextLong();
+        double price=input.nextLong();
         System.out.println("Enter seats");
         int seats=input.nextInt();
-        Flight flight=new Flight(id,orgin,destination,date,time,price,seats);
+        input.nextLine();
+        System.out.println("Flight "+id+" add");
+        Flight flight=new Flight(id,origin,destination,date,time,price,seats);
         flightArrayList.add(flight);
     }
     public void remove(){
@@ -150,10 +153,15 @@ public class Flights {
         for (int i = 0; i < flightArrayList.size(); i++) {
             if (id.equals(flightArrayList.get(i).getId())){
                 flightArrayList.remove(i);
-            }}}
+                System.out.println("Flight "+id+" removed");
+                i=flightArrayList.size();
+            } else if (i==flightArrayList.size()-1) {
+                System.out.println("Id does not exist");
+            }}
+        }
     public void update(){
          int n=1;
-         boolean t=false;
+         boolean flag=false;
         System.out.println("Enter the id");
         String id=input.nextLine();
         for (int i = 0; i < flightArrayList.size(); i++) {
@@ -162,36 +170,20 @@ public class Flights {
                     n=updateMenue();
                     switch (n){
                         case 1:
-                            while (t==false){
+                            while (flag==false){
                                 System.out.println("Enter flight id");
                                 id=input.nextLine();
-                                t=checkId(id);}
+                                flag=checkId(id);}
                             flightArrayList.get(i).setId(input.nextLine());
-                            t=false;
+                            flag=false;
                             break;
                         case 2:
-                            String origin="";
-                            while (t==false){
                                 System.out.println("Enter origin");
-                                t=true;
-                                 origin=input.nextLine();
-                                origin=input.nextLine();
-                                if (origin.equals(flightArrayList.get(i).getDestination())){t=false;}
-                            }
-                            flightArrayList.get(i).setOrigin(origin);
-                            t=false;
+                            flightArrayList.get(i).setOrigin(input.nextLine());
                             break;
                         case 3:
-                            String Destination ="";
-                            while (t==false){
                                 System.out.println("Enter Destination");
-                                t=true;
-                                Destination=input.nextLine();
-                                Destination=input.nextLine();
-                                if (Destination.equals(flightArrayList.get(i).getOrigin())){t=false;}
-                            }
-                            flightArrayList.get(i).setOrigin(Destination);
-                            t=false;
+                            flightArrayList.get(i).setDestination(input.nextLine());
                             break;
                         case 4:
                             flightArrayList.get(i).setDate(checkDate());
@@ -200,16 +192,27 @@ public class Flights {
                             flightArrayList.get(i).setTime(checkTime());
                             break;
                         case 6:
-                            flightArrayList.get(i).setPrice(input.nextLong());
+                            System.out.println("Enter price");
+                            flightArrayList.get(i).setPrice(input.nextDouble());
+                            input.nextLine();
                             break;
                         case 7:
+                            System.out.println("Enter seats");
                             flightArrayList.get(i).setSeats(input.nextInt());
+                            input.nextLine();
+                            break;
+                        case 0:
                             break;
                         default:
+                            System.out.println("Wrong number");
 
                     }
                 }
-            }}
+            } else if (i==flightArrayList.size()-1) {
+                System.out.println("Id does not exist");
+            }
+
+        }
 
     }
     public int updateMenue(){
@@ -221,7 +224,9 @@ public class Flights {
         System.out.println("6-price");
         System.out.println("7-seats");
         System.out.println("0-sing out");
-        return input.nextInt();
+        int n= input.nextInt();
+       input.nextLine();
+       return n;
     }
     public boolean checkId(String id){
         for (int i = 0; i < flightArrayList.size(); i++) {
@@ -244,6 +249,7 @@ public class Flights {
              t=false;
              System.out.println("Enter the day");
              day = input.nextInt();
+             input.nextLine();
              if(day>30){t=true;}
          }
          return "1402/"+ Integer.toString(month)+"/"+ Integer.toString(day);
@@ -262,6 +268,7 @@ public class Flights {
              t=false;
              System.out.println("Enter minutes");
              minutes=input.nextInt();
+             input.nextLine();
              if (minutes>60){t=false;}
          }
          return Integer.toString(hour)+":"+Integer.toString(minutes);

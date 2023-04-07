@@ -23,13 +23,17 @@ public class Main {
                                   users.booking(flights.flightArrayList);
                                   break;
                               case 4:
-                                  users.church();
+                                  users.charge();
                                   break;
                               case 5:
                                   users.ticketCancellation(flights.flightArrayList);
                                   break;
                               case 6:
                                   users.print();
+                              case 0:
+                                  break;
+                              default:
+                                  System.out.println("Wrong number");
 
 
                           }}
@@ -50,6 +54,10 @@ public class Main {
                               case 4:
                                   flights.print();
                                   break;
+                              case 0:
+                                  break;
+                              default:
+                                  System.out.println("Wrong number");
                           }
                            }
                            break;
