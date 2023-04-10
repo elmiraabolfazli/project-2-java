@@ -33,7 +33,10 @@ public class Flights {
      }
      public void searchFlightTicket(){
          ArrayList<Flight> flightArrayList1=new ArrayList<>();
-         flightArrayList1=flightArrayList;
+        // flightArrayList1=flightArrayList;
+         for (int i = 0; i < flightArrayList.size(); i++) {
+             flightArrayList1.add(flightArrayList.get(i));
+         }
          int n=1;
          ArrayList<String> filter=new ArrayList<>();
          while (n!=0){
@@ -114,24 +117,19 @@ public class Flights {
          input.nextLine();
          return n;
      }
-     public void print(){
-         for (int i = 0; i < flightArrayList.size(); i++) {
-             System.out.println(flightArrayList.get(i));
-         }
-     }
-    public void print(ArrayList<Flight> flightArrayList1){
+    public void print(ArrayList<Flight> flightArrayList){
         System.out.println("Available flights:");
-        for (int i = 0; i < flightArrayList1.size(); i++) {
-            System.out.println(flightArrayList1.get(i));
+        for (int i = 0; i < flightArrayList.size(); i++) {
+            System.out.println(flightArrayList.get(i));
         }
     }
     public void add(){
-         boolean flag=false;
+        Flight flight=new Flight();
         String id="";
-         while (flag==false){
+         while (flight!=null){
         System.out.println("Enter flight id");
          id=input.nextLine();
-         flag=checkId(id);}
+          flight=checkId(id);}
         System.out.println("Enter origin");
         String origin=input.nextLine();
         System.out.println("Enter destination ");
@@ -139,80 +137,78 @@ public class Flights {
         String date=checkDate();
         String time=checkTime();
         System.out.println("Enter Price");
-        double price=input.nextLong();
+        double price=input.nextDouble();
         System.out.println("Enter seats");
         int seats=input.nextInt();
         input.nextLine();
         System.out.println("Flight "+id+" add");
-        Flight flight=new Flight(id,origin,destination,date,time,price,seats);
+         flight=new Flight(id,origin,destination,date,time,price,seats);
         flightArrayList.add(flight);
     }
     public void remove(){
         System.out.println("Enter the id");
         String id=input.nextLine();
-        for (int i = 0; i < flightArrayList.size(); i++) {
-            if (id.equals(flightArrayList.get(i).getId())){
-                flightArrayList.remove(i);
+        Flight flight=checkId(id);
+            if (flight!=null){
+                flightArrayList.remove(flight);
                 System.out.println("Flight "+id+" removed");
-                i=flightArrayList.size();
-            } else if (i==flightArrayList.size()-1) {
+            } else {
                 System.out.println("Id does not exist");
-            }}
+            }
         }
     public void update(){
          int n=1;
-         boolean flag=false;
         System.out.println("Enter the id");
         String id=input.nextLine();
-        for (int i = 0; i < flightArrayList.size(); i++) {
-            if (id.equals(flightArrayList.get(i).getId())){
+        Flight flight=checkId(id);
+            if (flight!=null){
                 while (n!=0){
                     n=updateMenue();
                     switch (n){
                         case 1:
-                            while (flag==false){
-                                System.out.println("Enter flight id");
-                                id=input.nextLine();
-                                flag=checkId(id);}
-                            flightArrayList.get(i).setId(input.nextLine());
-                            flag=false;
+                            System.out.println("Enter flight id");
+                            id=input.nextLine();
+                            if (checkId(id)==null){
+                                flight.setId(id);
+                            }else {
+                                System.out.println("Id is repetitive");
+                            }
                             break;
                         case 2:
                                 System.out.println("Enter origin");
-                            flightArrayList.get(i).setOrigin(input.nextLine());
+                            flight.setOrigin(input.nextLine());
                             break;
                         case 3:
                                 System.out.println("Enter Destination");
-                            flightArrayList.get(i).setDestination(input.nextLine());
+                            flight.setDestination(input.nextLine());
                             break;
                         case 4:
-                            flightArrayList.get(i).setDate(checkDate());
+                            flight.setDate(checkDate());
                             break;
                         case 5:
-                            flightArrayList.get(i).setTime(checkTime());
+                            flight.setTime(checkTime());
                             break;
                         case 6:
                             System.out.println("Enter price");
-                            flightArrayList.get(i).setPrice(input.nextDouble());
+                            flight.setPrice(input.nextDouble());
                             input.nextLine();
                             break;
                         case 7:
                             System.out.println("Enter seats");
-                            flightArrayList.get(i).setSeats(input.nextInt());
+                            flight.setSeats(input.nextInt());
                             input.nextLine();
                             break;
                         case 0:
                             break;
                         default:
                             System.out.println("Wrong number");
-
                     }
                 }
-            } else if (i==flightArrayList.size()-1) {
+            } else  {
                 System.out.println("Id does not exist");
             }
 
-        }
+
 
     }
     public int updateMenue(){
@@ -228,12 +224,11 @@ public class Flights {
        input.nextLine();
        return n;
     }
-    public boolean checkId(String id){
+    public Flight checkId(String id){
         for (int i = 0; i < flightArrayList.size(); i++) {
             if (id.equals(flightArrayList.get(i).getId())){
-                System.out.println("Id is");
-                return false;
-    }} return true;
+                return flightArrayList.get(i);
+    }} return null;
      }
      public String checkDate(){
          int month=0;

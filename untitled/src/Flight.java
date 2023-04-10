@@ -71,4 +71,7 @@ public class Flight {
                 ", seats=" + seats +
                 '}';
     }
+
+    public Flight() {
+    }
 }

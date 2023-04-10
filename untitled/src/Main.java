@@ -52,7 +52,7 @@ public class Main {
                                   flights.remove();
                                   break;
                               case 4:
-                                  flights.print();
+                                  flights.print(flights.flightArrayList);
                                   break;
                               case 0:
                                   break;
