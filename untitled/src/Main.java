@@ -1,17 +1,18 @@
 public class Main {
     public static void main(String[] args) {
         Users users=new Users();
-        Flights flights=new Flights();
+        Flights flights=Flights.getFlights();
         flights.flightInitialize();
+        Admin admin=new Admin();
         while (true){
-           int n= users.menu1();
+           int n= Menu.menu1();
            switch (n){
                case 1:
                    n=users.singIn();
                    switch (n){
                        case 1:
                            while (n!=0){
-                          n= users.userMenu();
+                          n= Menu.userMenu();
                           switch (n) {
                               case 1:
                                   users.changePassword();
@@ -40,16 +41,16 @@ public class Main {
                            break;
                        case 2:
                            while (n!=0){
-                          n= users.adminMenu();
+                          n= Menu.adminMenu();
                           switch (n){
                               case 1:
-                                  flights.add();
+                                  admin.add();
                                   break;
                               case 2:
-                                  flights.update();
+                                  admin.update();
                                   break;
                               case 3:
-                                  flights.remove();
+                                  admin.remove();
                                   break;
                               case 4:
                                   flights.print(flights.flightArrayList);

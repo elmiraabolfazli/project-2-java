@@ -3,92 +3,57 @@ import java.util.Scanner;
 
 public class Users  {
     private User[] usersArray = new User[100];
+    private User user=new User();
     private int numberOfUser=0;
    private Scanner input=new Scanner(System.in);
-   private int number=0;
-    public int menu1(){
-        System.out.println("1-Sing in");
-        System.out.println("2-Sing up");
-       int n= input.nextInt();
-       input.nextLine();
-       return n;
-    }
     public void singUp(){
         usersArray[numberOfUser]=new User();
-        String name="";
-        boolean flag=true;
         System.out.println("Enter your username");
-         name=input.nextLine();
+         String name=input.nextLine();
         if(name.equals("Admin")){
             System.out.println("Choose another name");
         }else {
-            //checking repetitive name
-        for (int i = 0; i < numberOfUser; i++) {
-        if (usersArray[i].getUsername().equals(name)){
+             user=checkUsername(name);
+        if (user!=null){
             System.out.println("Your username is repeated");
-            flag=false;
-        }}
-        while (flag){
+        }else {
         usersArray[numberOfUser].setUsername(name);
         System.out.println("Enter your password");
         String password=input.nextLine();
         usersArray[numberOfUser].setPassword(password);
         ++numberOfUser;
-        flag=false;
         }}
     }
     public int singIn(){
+        Admin admin=new Admin();
         int n=0;
         //( n==0 Wrong) (n==1 user) (n==2 admin)
         System.out.println("Enter your username");
         String name=input.nextLine();
         if(name.equals("Admin")){
-            return singInAdmin();
-
+            return admin.singInAdmin();
         }else{
-            for (int i = 0; i < numberOfUser; i++) {
-                if(usersArray[i].getUsername().equals(name)){
+             user=checkUsername(name);
+                if(user!=null){
                     System.out.println("Enter your password");
                     String password=input.nextLine();
-                    if(usersArray[i].getPassword().equals(password)){ number=i;i=numberOfUser; return 1;}
+                    if(user.getPassword().equals(password)){return 1;}
                      else {
                         System.out.println("Wrong password!");
                         return 0;
                     }
-                } else if (i==numberOfUser-1) {
+                } else{
                     System.out.println("Your username does not exist");
                 }
 
-            }
+
         }
-        return n;
-    }
-    public int adminMenu(){
-        System.out.println("1-Add");
-        System.out.println("2-Update");
-        System.out.println("3-Remove");
-        System.out.println("4-Flight schedules");
-        System.out.println("0-Sing out ");
-         int n=input.nextInt();
-         input.nextLine();
-        return n;
-    }
-    public int userMenu(){
-        System.out.println("1-Change password");
-        System.out.println("2-Search flight tickets");
-        System.out.println("3-Booking ticket");
-        System.out.println("4-Add charge");
-        System.out.println("5-Ticket cancellation");
-        System.out.println("6-Booked tickets");
-        System.out.println("0-Sing out");
-        int n= input.nextInt();
-        input.nextLine();
         return n;
     }
     public void changePassword(){
         System.out.println("Enter your new password");
         String password=input.nextLine();
-        usersArray[number].setPassword(password);
+        user.setPassword(password);
     }
     public void booking(ArrayList<Flight> flightsArrayList){
         System.out.println("Enter id flight");
@@ -98,11 +63,11 @@ public class Users  {
             if(id.equals(idFlight)){
                 int seat=flightsArrayList.get(i).getSeats();
                 double price= flightsArrayList.get(i).getPrice();
-                double charge = usersArray[number].getCharge();
+                double charge = user.getCharge();
                 if (seat > 0 && charge>=price) {
                     flightsArrayList.get(i).setSeats(--seat);
-                    usersArray[number].setCharge(charge-price);
-                    usersArray[number].bookingFlight.add(flightsArrayList.get(i));
+                    user.setCharge(charge-price);
+                    user.bookingFlight.add(flightsArrayList.get(i));
                     System.out.println("Flight"+id+" booked");
                     i=flightsArrayList.size();
                 }else {
@@ -118,39 +83,37 @@ public class Users  {
         System.out.println("Enter charge");
         double charge = input.nextLong();
         input.nextLine();
-        usersArray[number].setCharge(charge+ usersArray[number].getCharge());
-        System.out.println("your charge:"+(usersArray[number].getCharge()));
+        user.setCharge(charge+ user.getCharge());
+        System.out.println("your charge:"+(user.getCharge()));
     }
     public void print(){
-        for (int i = 0; i < usersArray[number].bookingFlight.size(); i++) {
-            System.out.println(usersArray[number].bookingFlight.get(i));
+        for (int i = 0; i < user.bookingFlight.size(); i++) {
+            System.out.println(user.bookingFlight.get(i));
         }
     }
     public void ticketCancellation (ArrayList<Flight> flightsArrayList){
         System.out.println("Enter id flight");
         String id=input.nextLine();
-        for (int i = 0; i < usersArray[number].bookingFlight.size(); i++) {
-            if(id.equals(usersArray[number].bookingFlight.get(i).getId())){
-                int seat= usersArray[number].bookingFlight.get(i).getSeats();
-                double price=usersArray[number].bookingFlight.get(i).getPrice();
-                double charge= usersArray[number].getCharge();
-                    usersArray[number].bookingFlight.remove(i);
+        for (int i = 0; i < user.bookingFlight.size(); i++) {
+            if(id.equals(user.bookingFlight.get(i).getId())){
+                int seat= user.bookingFlight.get(i).getSeats();
+                double price=user.bookingFlight.get(i).getPrice();
+                double charge= user.getCharge();
+                    user.bookingFlight.remove(i);
                     flightsArrayList.get(i).setSeats(++seat);
-                    usersArray[number].setCharge(charge + price);
+                    user.setCharge(charge + price);
                     System.out.println("Flight"+id+" cancelled");
-            } else if (i==(usersArray[number].bookingFlight.size()-1)) {
+            } else if (i==(user.bookingFlight.size()-1)) {
                 System.out.println("Id does not exist");
             }
         }
     }
-    public int singInAdmin (){
-        System.out.println("Enter your password");
-        String password=input.nextLine();
-        if(password.equals("Admin")){
-            return 2;
-        }
-        else {
-            System.out.println("Wrong password");return 0;}
+    public User checkUsername(String name){
+        for (int i = 0; i < numberOfUser; i++) {
+            if (usersArray[i].getUsername().equals(name)){
+               return usersArray[i];
+            }}
+        return null;
     }
 
 }
