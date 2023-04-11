@@ -18,29 +18,33 @@ public class Admin {
         while (flight!=null){
             System.out.println("Enter flight id");
             id=input.nextLine();
-            flight=flights.checkId(id);}
+            flight=Check.checkId(id);}
         System.out.println("Enter origin");
         String origin=input.nextLine();
         System.out.println("Enter destination ");
         String destination=input.nextLine();
-        String date=flights.checkDate();
-        String time=flights.checkTime();
+        String date=Check.checkDate();
+        String time=Check.checkTime();
         System.out.println("Enter Price");
         double price=input.nextDouble();
         System.out.println("Enter seats");
         int seats=input.nextInt();
         input.nextLine();
         System.out.println("Flight "+id+" add");
-        flight=new Flight(id,origin,destination,date,time,price,seats);
+        flight=new Flight(id,origin,destination,date,time,price,seats,seats);
         flights.flightArrayList.add(flight);
     }
     public void remove(){
         System.out.println("Enter the id");
         String id=input.nextLine();
-        Flight flight=flights.checkId(id);
-        if (flight!=null){
+        Flight flight=Check.checkId(id);
+        if (flight!=null ){
+            if (flight.getSeats()==flight.getTotalCapacity()){
             flights.flightArrayList.remove(flight);
-            System.out.println("Flight "+id+" removed");
+            System.out.println("Flight "+id+" removed");}
+            else {
+                System.out.println("Flight "+id+" is reserved");
+            }
         } else {
             System.out.println("Id does not exist");
         }
@@ -49,15 +53,16 @@ public class Admin {
        int n=1;
         System.out.println("Enter the id");
         String id=input.nextLine();
-        Flight flight=flights.checkId(id);
+        Flight flight=Check.checkId(id);
         if (flight!=null){
+            if(flight.getSeats()==flight.getTotalCapacity()){
             while (n!=0){
                 n=Menu.updateMenue();
                 switch (n){
                     case 1:
                         System.out.println("Enter flight id");
                         id=input.nextLine();
-                        if (flights.checkId(id)==null){
+                        if (Check.checkId(id)==null){
                             flight.setId(id);
                         }else {
                             System.out.println("Id is repetitive");
@@ -72,10 +77,10 @@ public class Admin {
                         flight.setDestination(input.nextLine());
                         break;
                     case 4:
-                        flight.setDate(flights.checkDate());
+                        flight.setDate(Check.checkDate());
                         break;
                     case 5:
-                        flight.setTime(flights.checkTime());
+                        flight.setTime(Check.checkTime());
                         break;
                     case 6:
                         System.out.println("Enter price");
@@ -85,6 +90,7 @@ public class Admin {
                     case 7:
                         System.out.println("Enter seats");
                         flight.setSeats(input.nextInt());
+                        flight.setTotalCapacity(flight.getSeats());
                         input.nextLine();
                         break;
                     case 0:
@@ -92,7 +98,8 @@ public class Admin {
                     default:
                         System.out.println("Wrong number");
                 }
-            }
+            }}else {
+                System.out.println("Flight "+id+" is reserved");}
         } else  {
             System.out.println("Id does not exist");
         }

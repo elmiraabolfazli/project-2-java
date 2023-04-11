@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        Users users=new Users();
+        Users users=Users.getUsers();
         Flights flights=Flights.getFlights();
         flights.flightInitialize();
         Admin admin=new Admin();

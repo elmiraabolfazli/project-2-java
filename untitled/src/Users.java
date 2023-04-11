@@ -2,9 +2,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Users  {
-    private User[] usersArray = new User[100];
+    public User[] usersArray = new User[100];
     private User user=new User();
     private int numberOfUser=0;
+    private static Users obj= new Users();
+    private Users(){}
+    public static Users getUsers(){
+        if(obj==null){
+            obj=new Users();
+        }
+        return obj;
+    }
    private Scanner input=new Scanner(System.in);
     public void singUp(){
         usersArray[numberOfUser]=new User();
@@ -13,7 +21,7 @@ public class Users  {
         if(name.equals("Admin")){
             System.out.println("Choose another name");
         }else {
-             user=checkUsername(name);
+             user=Check.checkUsername(name);
         if (user!=null){
             System.out.println("Your username is repeated");
         }else {
@@ -33,7 +41,7 @@ public class Users  {
         if(name.equals("Admin")){
             return admin.singInAdmin();
         }else{
-             user=checkUsername(name);
+             user=Check.checkUsername(name);
                 if(user!=null){
                     System.out.println("Enter your password");
                     String password=input.nextLine();
@@ -108,12 +116,7 @@ public class Users  {
             }
         }
     }
-    public User checkUsername(String name){
-        for (int i = 0; i < numberOfUser; i++) {
-            if (usersArray[i].getUsername().equals(name)){
-               return usersArray[i];
-            }}
-        return null;
+    public int getNumberOfUser() {
+        return numberOfUser;
     }
-
 }

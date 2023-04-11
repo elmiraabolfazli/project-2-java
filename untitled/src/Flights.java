@@ -18,25 +18,25 @@ public class Flights {
        return obj;
     }
      public void flightInitialize (){
-         Flight flight =new Flight("w.1","Yazd","Kerman","1402/2/20","3:30",700000,40);
+         Flight flight =new Flight("w.1","Yazd","Kerman","1402/2/20","3:30",700000,40,40);
          flightArrayList.add(flight);
-        flight=new Flight("w.2","Yazd","Tehran","1402/3/30","5:45",800000,66);
+        flight=new Flight("w.2","Yazd","Tehran","1402/3/30","5:45",800000,66,66);
          flightArrayList.add(flight);
-         flight=new Flight("w.3","Ahvaz","Kerman","1402/12/2","6:30",900000,20);
+         flight=new Flight("w.3","Ahvaz","Kerman","1402/12/2","6:30",900000,20,20);
          flightArrayList.add(flight);
-         flight=new Flight("w.4","Shiraz","Tabriz","1402/3/30","5:45",800000,66);
+         flight=new Flight("w.4","Shiraz","Tabriz","1402/3/30","5:45",800000,66,66);
          flightArrayList.add(flight);
-         flight=new Flight("w.5","Mashhad","Ahvaz","1402/2/21","3:30",700000,40);
+         flight=new Flight("w.5","Mashhad","Ahvaz","1402/2/21","3:30",700000,40,40);
          flightArrayList.add(flight);
-         flight=new Flight("w.6","Tehran","yazd","1402/7/3","5:45",800000,66);
+         flight=new Flight("w.6","Tehran","yazd","1402/7/3","5:45",800000,66,66);
          flightArrayList.add(flight);
-         flight=new Flight("w.7","Tabriz","Shiraz","1402/1/2","6:30",900000,20);
+         flight=new Flight("w.7","Tabriz","Shiraz","1402/1/2","6:30",900000,20,20);
          flightArrayList.add(flight);
-         flight=new Flight("w.8","Ahvaz","Mashhad","1402/11/30","5:45",800000,66);
+         flight=new Flight("w.8","Ahvaz","Mashhad","1402/11/30","5:45",800000,66,66);
          flightArrayList.add(flight);
-         flight=new Flight("w.9","Isfahan","Fars","1402/11/2","6:30",900000,20);
+         flight=new Flight("w.9","Isfahan","Fars","1402/11/2","6:30",900000,20,20);
          flightArrayList.add(flight);
-         flight=new Flight("w.10","Semnan","Golestan","1402/1/30","5:45",800000,66);
+         flight=new Flight("w.10","Semnan","Golestan","1402/1/30","5:45",800000,66,66);
          flightArrayList.add(flight);
      }
     public void searchFlightTicket(){
@@ -82,7 +82,7 @@ public class Flights {
                     break;
                 case 4:
                     filter.add("date");
-                    String date=checkDate();
+                    String date=Check.checkDate();
                     for (int i = 0; i < flightArrayList1.size(); i++) {
                         if( !(date.equals(flightArrayList1.get(i).getDate())))
                         {flightArrayList1.remove(i);i--;}
@@ -118,50 +118,9 @@ public class Flights {
             System.out.println(flightArrayList.get(i));
         }
     }
-    public Flight checkId(String id){
-        for (int i = 0; i < flightArrayList.size(); i++) {
-            if (id.equals(flightArrayList.get(i).getId())){
-                return flightArrayList.get(i);
-            }} return null;
-    }
-    public String checkDate(){
-        int month=0;
-        boolean t=false;
-        while(t==false) {
-            t=true;
-            System.out.println("Enter the month");
-            month = input.nextInt();
-            if(month>12){t=false;}
-        }
-        int day=0;
-        while(t==true) {
-            t=false;
-            System.out.println("Enter the day");
-            day = input.nextInt();
-            input.nextLine();
-            if(day>30){t=true;}
-        }
-        return "1402/"+ Integer.toString(month)+"/"+ Integer.toString(day);
-    }
-    public String checkTime(){
-        int hour=0;
-        boolean t=false;
-        while (t==false){
-            t=true;
-            System.out.println("Enter hour");
-            hour=input.nextInt();
-            if (hour>24){t=false;}
-        }
-        int minutes=0;
-        while (t==true){
-            t=false;
-            System.out.println("Enter minutes");
-            minutes=input.nextInt();
-            input.nextLine();
-            if (minutes>60){t=false;}
-        }
-        return Integer.toString(hour)+":"+Integer.toString(minutes);
-    }
+
+
+
 
 
 
