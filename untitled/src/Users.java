@@ -5,6 +5,10 @@ public class Users  {
     public User[] usersArray = new User[100];
     private User user=new User();
     private int numberOfUser=0;
+    private Scanner input=new Scanner(System.in);
+    private IdTickets idTickets=IdTickets.getIdTickets();
+    private IdTicket idTicket=new IdTicket();
+    //******************************
     private static Users obj= new Users();
     private Users(){}
     public static Users getUsers(){
@@ -13,7 +17,15 @@ public class Users  {
         }
         return obj;
     }
-   private Scanner input=new Scanner(System.in);
+    //******************************
+    private  User checkUsername(String name){
+       Users users= getUsers();
+       for (int i = 0; i < users.getNumberOfUser(); i++) {
+           if (users.usersArray[i].getUsername().equals(name)){
+               return users.usersArray[i];
+           }}
+       return null;
+   }
     public void singUp(){
         usersArray[numberOfUser]=new User();
         System.out.println("Enter your username");
@@ -21,7 +33,7 @@ public class Users  {
         if(name.equals("Admin")){
             System.out.println("Choose another name");
         }else {
-             user=Check.checkUsername(name);
+             user= checkUsername(name);
         if (user!=null){
             System.out.println("Your username is repeated");
         }else {
@@ -41,7 +53,7 @@ public class Users  {
         if(name.equals("Admin")){
             return admin.singInAdmin();
         }else{
-             user=Check.checkUsername(name);
+             user= checkUsername(name);
                 if(user!=null){
                     System.out.println("Enter your password");
                     String password=input.nextLine();
@@ -53,8 +65,6 @@ public class Users  {
                 } else{
                     System.out.println("Your username does not exist");
                 }
-
-
         }
         return n;
     }
@@ -65,7 +75,7 @@ public class Users  {
     }
     public void booking(ArrayList<Flight> flightsArrayList){
         System.out.println("Enter id flight");
-       String id=input.nextLine();
+       String id="w.1";//input.nextLine();
         for (int i = 0; i < flightsArrayList.size(); i++) {
             String idFlight=flightsArrayList.get(i).getId();
             if(id.equals(idFlight)){
@@ -75,8 +85,12 @@ public class Users  {
                 if (seat > 0 && charge>=price) {
                     flightsArrayList.get(i).setSeats(--seat);
                     user.setCharge(charge-price);
-                    user.bookingFlight.add(flightsArrayList.get(i));
-                    System.out.println("Flight"+id+" booked");
+                    //user.bookingFlight.add(flightsArrayList.get(i));
+                    idTicket.setUser(user);
+                    idTicket.setFlight(flightsArrayList.get(i));
+                    idTicket.setIdTicket(id+seat);
+                    idTickets.idTicketArrayList.add(idTicket);
+                    System.out.println("Flight"+id+seat+" booked");
                     i=flightsArrayList.size();
                 }else {
                     System.out.println("You cant book ticket\n check the charge or seats");
@@ -88,9 +102,7 @@ public class Users  {
         }
     }
     public void charge (){
-        System.out.println("Enter charge");
-        double charge = input.nextLong();
-        input.nextLine();
+        double charge = Check.checkPrice();
         user.setCharge(charge+ user.getCharge());
         System.out.println("your charge:"+(user.getCharge()));
     }
@@ -116,7 +128,7 @@ public class Users  {
             }
         }
     }
-    public int getNumberOfUser() {
+    private int getNumberOfUser() {
         return numberOfUser;
     }
 }

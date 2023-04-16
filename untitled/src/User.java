@@ -3,6 +3,7 @@ public class User {
 private String username;
 private String password;
 private double charge = (double) 0;
+//*****************************************
 public ArrayList<Flight> bookingFlight=new ArrayList<>();
 
     public void setUsername(String username) {

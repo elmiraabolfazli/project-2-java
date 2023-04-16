@@ -12,6 +12,33 @@ public class Flight {
     private double price;
     private int seats;
     private int totalCapacity;
+    //**************************************
+    public Flight(String id, String origin, String destination, String date, String time, double price, int seats, int totalCapacity) {
+        this.id = id;
+        this.origin = origin;
+        this.destination = destination;
+        this.date = date;
+        this.time = time;
+        this.price = price;
+        this.seats = seats;
+        this.totalCapacity=totalCapacity;
+    }
+    public Flight() {
+    }
+    //**************************************
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "id='" + id + '\'' +
+                ", origin='" + origin + '\'' +
+                ", destination='" + destination + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", price=" + price +
+                ", seats=" + seats +
+                '}';
+    }
+    //**************************************
     public String getId() {
         return id;
     }
@@ -51,40 +78,13 @@ public class Flight {
     public void setSeats(int seats) {
         this.seats = seats;
     }
-
     public int getTotalCapacity() {
         return totalCapacity;
     }
-
     public void setTotalCapacity(int totalCapacity) {
         this.totalCapacity = totalCapacity;
     }
-
-    public Flight(String id, String origin, String destination, String date, String time, double price, int seats, int totalCapacity) {
-        this.id = id;
-        this.origin = origin;
-        this.destination = destination;
-        this.date = date;
-        this.time = time;
-        this.price = price;
-        this.seats = seats;
-        this.totalCapacity=totalCapacity;
+    public String getTime() {
+        return time;
     }
-    @Override
-    public String toString() {
-        return "Flight{" +
-                "id='" + id + '\'' +
-                ", origin='" + origin + '\'' +
-                ", destination='" + destination + '\'' +
-                ", date='" + date + '\'' +
-                ", time='" + time + '\'' +
-                ", price=" + price +
-                ", seats=" + seats +
-                '}';
-    }
-
-    public Flight() {
-    }
-
-
 }
