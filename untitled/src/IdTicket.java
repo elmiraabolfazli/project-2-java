@@ -1,7 +1,7 @@
 public class IdTicket {
     String idTicket;
-    User user=new User();
-    Flight flight=new Flight();
+    User user = new User();
+    Flight flight = new Flight();
     //*************************
 
     public String getIdTicket() {

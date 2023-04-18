@@ -1,11 +1,10 @@
-import java.util.ArrayList;
-public class User {
-private String username;
-private String password;
-private double charge = (double) 0;
-//*****************************************
-public ArrayList<Flight> bookingFlight=new ArrayList<>();
 
+public class User {
+    private String username;
+    private String password;
+    private double charge = (double) 0;
+
+    //*****************************************
     public void setUsername(String username) {
         this.username = username;
     }
