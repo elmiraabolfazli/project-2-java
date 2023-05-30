@@ -1,7 +1,7 @@
 public class IdTicket {
     String idTicket;
-    User user = new User();
-    Flight flight = new Flight();
+    int numberofuser;
+    String idFlight;
     //*************************
 
     public String getIdTicket() {
@@ -12,19 +12,19 @@ public class IdTicket {
         this.idTicket = idTicket;
     }
 
-    public User getUser() {
-        return user;
+    public int getNumberofuser() {
+        return numberofuser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setNumberofuser(int numberofuser) {
+        this.numberofuser = numberofuser;
     }
 
-    public Flight getFlight() {
-        return flight;
+    public String getIdFlight() {
+        return idFlight;
     }
 
-    public void setFlight(Flight flight) {
-        this.flight = flight;
+    public void setIdFlight(String idFlight) {
+        this.idFlight = idFlight;
     }
 }

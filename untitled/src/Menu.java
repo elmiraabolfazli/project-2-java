@@ -1,12 +1,15 @@
+import javax.imageio.IIOException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Menu {
     private static final Scanner input = new Scanner(System.in);
     private static final Flights flights = Flights.getFlights();
-    private static final Users users = Users.getUsers();
+
+    private static final Users users = new Users();
 
     //**********************************
-    public static void menu1() {
+    public static void menu1()throws IOException {
         System.out.println("1-Sing in");
         System.out.println("2-Sing up");
         int n = input.nextInt();
@@ -35,7 +38,7 @@ public class Menu {
         }
     }
 
-    private static int adminMenu() {
+    private static int adminMenu() throws IOException {
         Admin admin = new Admin();
         System.out.println("1-Add");
         System.out.println("2-Update");
@@ -55,7 +58,7 @@ public class Menu {
                 admin.remove();
                 break;
             case 4:
-                flights.print(flights.flightArrayList);
+                flights.print();
                 break;
             case 0:
                 break;
@@ -65,7 +68,7 @@ public class Menu {
         return n;
     }
 
-    private static int userMenu() {
+    private static int userMenu() throws IOException{
         System.out.println("1-Change password");
         System.out.println("2-Search flight tickets");
         System.out.println("3-Booking ticket");

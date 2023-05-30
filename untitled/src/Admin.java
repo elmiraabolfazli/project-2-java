@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Admin {
@@ -5,16 +6,6 @@ public class Admin {
     private Scanner input = new Scanner(System.in);
 
     //**************************************
-    private Flight checkId(String id) {
-        Flights flights = Flights.getFlights();
-        for (int i = 0; i < flights.flightArrayList.size(); i++) {
-            if (id.equals(flights.flightArrayList.get(i).getId())) {
-                return flights.flightArrayList.get(i);
-            }
-        }
-        return null;
-    }
-
     public int singInAdmin() {
         System.out.println("Enter your password");
         String password = input.nextLine();
@@ -26,14 +17,15 @@ public class Admin {
         }
     }
 
-    public void add() {
+    public void add() throws IOException {
         Flight flight = new Flight();
-        String id = "";
-        while (flight != null) {
+        boolean t=true;
+        String id ="";
+        while (t) {
             System.out.println("Enter flight id");
             id = input.nextLine();
-            flight = checkId(id);
-            if (flight != null) {
+             t= flights.findflight(id);
+            if (t) {
                 System.out.println("Flight " + id + " is exist");
             }
         }
@@ -47,16 +39,19 @@ public class Admin {
         int seats = Check.checkSeats();
         System.out.println("Flight " + id + " add");
         flight = new Flight(id, origin, destination, date, time, price, seats, seats);
-        flights.flightArrayList.add(flight);
+        flights.addFlight(flight);
+       // flights.flightArrayList.add(flight);
     }
 
-    public void remove() {
+    public void remove() throws IOException {
         System.out.println("Enter the id");
         String id = input.nextLine();
-        Flight flight = checkId(id);
-        if (flight != null) {
-            if (flight.getSeats() == flight.getTotalCapacity()) {
-                flights.flightArrayList.remove(flight);
+        boolean t= flights.findflight(id);
+        if (t) {
+            flights.flightfile.seek(flights.number*116+108);
+            if (flights.flightfile.readInt() == flights.flightfile.readInt()) {
+                //flights.flightArrayList.remove(flight);
+                flights.remove();
                 System.out.println("Flight " + id + " removed");
             } else {
                 System.out.println("Flight " + id + " is reserved");
@@ -66,47 +61,48 @@ public class Admin {
         }
     }
 
-    public void update() {
+    public void update() throws IOException {
         int n = 1;
         System.out.println("Enter the id");
         String id = input.nextLine();
-        Flight flight = checkId(id);
-        if (flight != null) {
-            if (flight.getSeats() == flight.getTotalCapacity()) {
+        boolean t= flights.findflight(id);
+        if (t) {
+            flights.flightfile.seek(flights.number*116+108);
+            if (flights.flightfile.readInt() == flights.flightfile.readInt()) {
                 while (n != 0) {
                     n = updateMenue();
                     switch (n) {
                         case 1:
-                            updateId(flight);
-                            id = flight.getId();
+                            updateId();
+                            id = flights.readfix(flights.number, 0);
                             System.out.println("Flight " + id + " update");
                             break;
                         case 2:
                             System.out.println("Enter origin");
-                            flight.setOrigin(input.nextLine());
+                            flights.stiringOnFile(20, flights.number, input.nextLine());
                             System.out.println("Flight " + id + " update");
                             break;
                         case 3:
                             System.out.println("Enter Destination");
-                            flight.setDestination(input.nextLine());
+                            flights.stiringOnFile(40, flights.number, input.nextLine());
                             System.out.println("Flight " + id + " update");
                             break;
                         case 4:
-                            flight.setDate(Check.checkDate());
+                            flights.stiringOnFile(60, flights.number, Check.checkDate());
                             System.out.println("Flight " + id + " update");
                             break;
                         case 5:
-                            flight.setTime(Check.checkTime());
+                            flights.stiringOnFile(80, flights.number, Check.checkTime());
                             System.out.println("Flight " + id + " update");
                             break;
                         case 6:
-                            flight.setPrice(Check.checkPrice());
+                            flights.doubleinfile(100, flights.number,Check.checkPrice());
                             System.out.println("Flight " + id + " update");
                             break;
                         case 7:
                             int seats = Check.checkSeats();
-                            flight.setSeats(seats);
-                            flight.setTotalCapacity(seats);
+                            flights.intinfile(108, flights.number,seats);
+                            flights.intinfile(112, flights.number,seats);
                             System.out.println("Flight " + id + " update");
                             break;
                         case 0:
@@ -123,14 +119,16 @@ public class Admin {
         }
     }
 
-    private void updateId(Flight flight) {
+    private void updateId() throws IOException {
         String id;
+        int n= flights.number;
         System.out.println("Enter flight id");
         id = input.nextLine();
-        if (checkId(id) == null) {
-            flight.setId(id);
+        if (!flights.findflight(id)) {
+            flights.stiringOnFile(0,flights.number,id);
         } else {
             System.out.println("Id is repetitive");
+            flights.setNumber(n);
         }
     }
 
